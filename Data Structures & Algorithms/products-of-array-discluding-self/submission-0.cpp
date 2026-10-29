@@ -1,0 +1,22 @@
+class Solution {
+   public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        int n = nums.size();
+        int pref[100000], suff[100000];
+        pref[0] = 1;
+        for (int i = 1; i < n; i++) {
+            pref[i] = pref[i - 1] * nums[i - 1];
+        }
+        suff[n - 1] = 1;
+
+        for (int i = n - 2; i >= 0; i--) {
+            suff[i] = suff[i + 1] * nums[i + 1];
+        }
+
+        vector<int> res;
+        for (int i = 0; i < n; i++) {
+            res.push_back(pref[i] * suff[i]);
+        }
+        return res;
+    }
+};
